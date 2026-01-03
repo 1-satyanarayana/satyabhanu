@@ -1,5 +1,6 @@
 let examSubmitted = false;
 window.questions = [];
+let currentQuestion = 0;
 
 // ===== TIMER =====
 let time = 600; // 10 minutes
@@ -25,7 +26,7 @@ document.addEventListener("visibilitychange", () => {
 async function loadQuestions() {
   try {
     const url =
-      "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec?action=questions"; // Replace with your Web App URL
+      "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec?action=questions";
     const res = await fetch(url);
     if (!res.ok) throw new Error(`HTTP Error ${res.status}`);
     const data = await res.json();
@@ -42,28 +43,44 @@ async function loadQuestions() {
     }));
 
     questions.sort(() => Math.random() - 0.5);
-    renderQuestions(questions);
+    window.questions = questions;
+    renderQuestion(currentQuestion);
   } catch (err) {
     alert("Unable to load questions: " + err);
     console.error(err);
   }
 }
 
-// ===== RENDER QUESTIONS =====
-function renderQuestions(questions) {
+// ===== RENDER ONE QUESTION =====
+function renderQuestion(index) {
   const box = document.getElementById("questions");
-  box.innerHTML = "";
+  const q = window.questions[index];
+  box.innerHTML = `
+    <p style="user-select:none">${index + 1}. ${q.q}</p>
+    ${q.o
+      .map(
+        (opt, j) =>
+          `<label style="user-select:none">
+             <input type="radio" name="q${index}" value="${j}"> ${opt}
+           </label><br>`
+      )
+      .join("")}
+    <button id="nextBtn">${
+      index === window.questions.length - 1 ? "Submit" : "Next"
+    }</button>
+  `;
 
-  questions.forEach((x, i) => {
-    box.innerHTML += `<p>${i + 1}. ${x.q}</p>`;
-    x.o.forEach((opt, j) => {
-      box.innerHTML += `<label>
-        <input type="radio" name="q${i}" value="${j}"> ${opt}
-      </label><br>`;
-    });
-  });
+  // Disable copy/paste
+  box.oncopy = box.oncut = box.onpaste = (e) => e.preventDefault();
 
-  window.questions = questions;
+  document.getElementById("nextBtn").onclick = () => {
+    currentQuestion++;
+    if (currentQuestion >= window.questions.length) {
+      submitExam();
+    } else {
+      renderQuestion(currentQuestion);
+    }
+  };
 }
 
 // ===== SUBMIT EXAM =====
@@ -80,7 +97,7 @@ function submitExam() {
   localStorage.setItem("score", score);
 
   const url =
-    "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec"; // Replace with Web App URL
+    "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec";
   fetch(url, {
     method: "POST",
     mode: "no-cors",
