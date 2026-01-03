@@ -1,0 +1,26 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Python Online Exam</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <h2>🐍 Python Online Exam</h2>
+
+    <form action="exam.html" onsubmit="return saveStudent()">
+      <input type="text" id="name" placeholder="Student Name" required /><br />
+      <input type="text" id="roll" placeholder="Roll Number" required /><br />
+      <input type="text" id="phone" placeholder="Phone Number" required /><br />
+      <button type="submit">Start Exam</button>
+    </form>
+
+    <script>
+      function saveStudent() {
+        localStorage.setItem("name", document.getElementById("name").value);
+        localStorage.setItem("roll", document.getElementById("roll").value);
+        localStorage.setItem("phone", document.getElementById("phone").value);
+        return true;
+      }
+    </script>
+  </body>
+</html>

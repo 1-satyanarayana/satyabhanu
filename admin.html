@@ -1,0 +1,158 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Admin Panel – Python Exam</title>
+    <link rel="stylesheet" href="style.css" />
+    <style>
+      table {
+        width: 90%;
+        margin: auto;
+        border-collapse: collapse;
+      }
+      th,
+      td {
+        border: 1px solid #ccc;
+        padding: 8px;
+        text-align: center;
+      }
+      th {
+        background: #2b7cff;
+        color: white;
+      }
+    </style>
+  </head>
+  <body>
+    <h2>🔐 Admin Login</h2>
+    <div id="loginBox">
+      <input id="adminUser" placeholder="Username" /><br />
+      <input id="adminPass" type="password" placeholder="Password" /><br />
+      <button onclick="adminLogin()">Login</button>
+    </div>
+
+    <div id="adminPanel" style="display: none">
+      <h2>📊 Python Exam – Results</h2>
+      <button onclick="loadResults()">🔄 Refresh</button>
+      <button onclick="downloadResults()">💾 Download All</button>
+      <button onclick="clearResults()">🗑 Clear All</button>
+
+      <!--<h3>Add Question</h3>
+      <input id="qText" placeholder="Question" /><br />
+      <input id="opt1" placeholder="Option 1" /><br />
+      <input id="opt2" placeholder="Option 2" /><br />
+      <input id="opt3" placeholder="Option 3" /><br />
+      <input id="opt4" placeholder="Option 4" /><br />
+      <input id="correctOpt" placeholder="Correct Option (0-3)" /><br />
+      <button onclick="addQuestion()">➕ Add Question</button>-->
+
+      <table>
+        <thead>
+          <tr>
+            <th>#</th>
+            <th>Name</th>
+            <th>Roll</th>
+            <th>Phone</th>
+            <th>Score</th>
+            <th>Date</th>
+          </tr>
+        </thead>
+        <tbody id="data"></tbody>
+      </table>
+    </div>
+
+    <script>
+      const ADMIN_USER = "SatyaBhanu";
+      const ADMIN_PASS = "SatyaBhanu";
+
+      function adminLogin() {
+        if (
+          document.getElementById("adminUser").value === ADMIN_USER &&
+          document.getElementById("adminPass").value === ADMIN_PASS
+        ) {
+          document.getElementById("loginBox").style.display = "none";
+          document.getElementById("adminPanel").style.display = "block";
+          loadResults();
+        } else alert("Invalid Login");
+      }
+
+      // ===== LOAD RESULTS =====
+      function loadResults() {
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec"
+        )
+          .then((r) => r.json())
+          .then((d) => {
+            const tbody = document.getElementById("data");
+            tbody.innerHTML = "";
+            d.forEach((r, i) => {
+              tbody.innerHTML += `<tr>
+          <td>${i + 1}</td><td>${r[0]}</td><td>${r[1]}</td>
+          <td>${r[2]}</td><td>${r[3]}</td><td>${r[4]}</td>
+        </tr>`;
+            });
+          });
+      }
+
+      // ===== DOWNLOAD RESULTS =====
+      function downloadResults() {
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec?action=download"
+        )
+          .then((r) => r.json())
+          .then((data) => {
+            let csv = data
+              .map((row) => row.map((cell) => `"${cell}"`).join(","))
+              .join("\n");
+            let blob = new Blob([csv], { type: "text/csv" });
+            let url = URL.createObjectURL(blob);
+            let a = document.createElement("a");
+            a.href = url;
+            a.download = "PythonExamResults.csv";
+            a.click();
+            URL.revokeObjectURL(url);
+          });
+      }
+
+      // ===== CLEAR RESULTS =====
+      function clearResults() {
+        if (!confirm("Are you sure?")) return;
+        fetch(
+          "https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec?action=clear"
+        )
+          .then((r) => r.text())
+          .then(() => {
+            alert("All results cleared!");
+            loadResults();
+          });
+      }
+
+      // ===== ADD QUESTION =====
+      function addQuestion() {
+        const q = document.getElementById("qText").value;
+        const o1 = document.getElementById("opt1").value;
+        const o2 = document.getElementById("opt2").value;
+        const o3 = document.getElementById("opt3").value;
+        const o4 = document.getElementById("opt4").value;
+        const a = document.getElementById("correctOpt").value;
+
+        fetch(
+          `https://script.google.com/macros/s/AKfycbwK2azAwS-_4zxRXbR1--6lJLR5iT8341QvWfJDJFsOV-s--7K-eoDZ5PqkZHyWf-x7/exec?action=addQuestion&q=${encodeURIComponent(
+            q
+          )}&o1=${encodeURIComponent(o1)}&o2=${encodeURIComponent(
+            o2
+          )}&o3=${encodeURIComponent(o3)}&o4=${encodeURIComponent(o4)}&a=${a}`
+        )
+          .then((r) => r.text())
+          .then((res) => {
+            alert("Question added!");
+            document.getElementById("qText").value = "";
+            document.getElementById("opt1").value = "";
+            document.getElementById("opt2").value = "";
+            document.getElementById("opt3").value = "";
+            document.getElementById("opt4").value = "";
+            document.getElementById("correctOpt").value = "";
+          })
+          .catch(() => alert("Failed to add question"));
+      }
+    </script>
+  </body>
+</html>

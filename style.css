@@ -1,0 +1,117 @@
+body {
+  font-family: Arial;
+  background: #f2f4f7;
+  text-align: center;
+}
+input,
+button {
+  padding: 10px;
+  margin: 8px;
+  width: 250px;
+}
+button {
+  background: #2b7cff;
+  color: white;
+  border: none;
+  cursor: pointer;
+}
+/* Container for all questions */
+#questions {
+  width: 80%;
+  margin: 20px auto;
+  display: flex;
+  flex-direction: column;
+  gap: 20px; /* space between questions */
+}
+
+/* Each question card */
+.question-card {
+  background: #ffffff;
+  padding: 20px 25px;
+  border-radius: 12px;
+  box-shadow: 0 4px 8px rgba(0, 0, 0, 0.1);
+  transition: transform 0.2s, box-shadow 0.2s;
+}
+
+.question-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 6px 15px rgba(0, 0, 0, 0.15);
+}
+
+/* Question text */
+.question-card p {
+  font-size: 18px;
+  font-weight: 500;
+  margin-bottom: 15px;
+  color: #333;
+}
+
+/* Options list */
+.question-card label {
+  display: block;
+  background: #f5f7fa;
+  padding: 10px 15px;
+  margin-bottom: 8px;
+  border-radius: 8px;
+  cursor: pointer;
+  transition: background 0.2s;
+}
+
+.question-card label:hover {
+  background: #e1ebff;
+}
+
+/* Hide default radio button */
+.question-card input[type="radio"] {
+  display: none;
+}
+
+/* Custom radio button */
+.question-card input[type="radio"] + span {
+  position: relative;
+  padding-left: 30px;
+  cursor: pointer;
+}
+
+.question-card input[type="radio"] + span::before {
+  content: "";
+  position: absolute;
+  left: 0;
+  top: 3px;
+  width: 20px;
+  height: 20px;
+  border: 2px solid #2b7cff;
+  border-radius: 50%;
+  background: white;
+  transition: background 0.2s, transform 0.2s;
+}
+
+/* Checked state */
+.question-card input[type="radio"]:checked + span::after {
+  content: "";
+  position: absolute;
+  left: 5px;
+  top: 8px;
+  width: 10px;
+  height: 10px;
+  background: #2b7cff;
+  border-radius: 50%;
+}
+
+/* Responsive for mobile */
+@media (max-width: 768px) {
+  #questions {
+    width: 95%;
+  }
+  .question-card p {
+    font-size: 16px;
+  }
+}
+
+.certificate {
+  background: white;
+  width: 60%;
+  margin: auto;
+  padding: 30px;
+  border: 2px solid black;
+}

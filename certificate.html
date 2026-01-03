@@ -1,0 +1,23 @@
+<!DOCTYPE html>
+<html>
+  <head>
+    <title>Certificate</title>
+    <link rel="stylesheet" href="style.css" />
+  </head>
+  <body>
+    <div class="certificate">
+      <h1>🎓 Certificate of Completion</h1>
+      <p>This certifies that</p>
+      <h2 id="name"></h2>
+      <p>has completed the Python Online Exam</p>
+      <p><b>Score:</b> <span id="score"></span></p>
+      <button onclick="window.print()">Download Certificate</button>
+    </div>
+
+    <script>
+      document.getElementById("name").innerText = localStorage.getItem("name");
+      document.getElementById("score").innerText =
+        localStorage.getItem("score");
+    </script>
+  </body>
+</html>
