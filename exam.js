@@ -5,7 +5,7 @@ let answers = {};
 let warned = false;
 
 /* ===== TIMER (10 minutes) ===== */
-let time = 600;
+let time = 3600;
 
 const timer = setInterval(() => {
   time--;
@@ -126,3 +126,4 @@ function submitExam() {
 }
 
 window.onload = loadQuestions;
+
