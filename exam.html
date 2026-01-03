@@ -1,14 +1,31 @@
 <!DOCTYPE html>
-<html>
-  <head>
-    <title>Python Exam</title>
-    <link rel="stylesheet" href="style.css" />
-  </head>
-  <body>
-    <h3 id="timer"></h3>
-    <div id="questions"></div>
-    <button onclick="submitExam()">Submit Exam</button>
+<html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <title>Python Exam</title>
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <link rel="stylesheet" href="style.css" />
+</head>
+<body>
 
-    <script src="exam.js"></script>
-  </body>
+  <!-- Timer -->
+  <div class="quiz-timer" id="timer">⏱ Time Left: 10:00</div>
+
+  <!-- Progress -->
+  <div class="quiz-progress">
+    <div class="progress-track">
+      <div class="progress-fill" id="progressFill"></div>
+    </div>
+  </div>
+
+  <!-- Question Area -->
+  <div id="questions"></div>
+
+  <!-- Sticky Action Bar -->
+  <div class="quiz-actions">
+    <button onclick="submitExam()">Submit Exam</button>
+  </div>
+
+  <script src="exam.js"></script>
+</body>
 </html>
