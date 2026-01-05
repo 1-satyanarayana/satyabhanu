@@ -1,23 +1,145 @@
 <!DOCTYPE html>
 <html>
   <head>
-    <title>Admin Panel – Python Exam</title>
-    <link rel="stylesheet" href="style.css" />
+    <title>Admin Panel – AWS Exam</title>
     <style>
-      table {
-        width: 90%;
-        margin: auto;
-        border-collapse: collapse;
+      /* ===== GENERAL STYLING ===== */
+      body {
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        min-height: 100vh;
+        margin: 0;
+        display: flex;
+        flex-direction: column;
+        align-items: center;
+        padding: 20px;
+        color: #333;
       }
+
+      h2 {
+        color: #fff;
+        margin-bottom: 20px;
+        text-align: center;
+        font-size: 28px;
+        text-shadow: 1px 1px 3px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ===== LOGIN BOX ===== */
+      #loginBox {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        display: flex;
+        flex-direction: column;
+        width: 320px;
+        margin-bottom: 30px;
+      }
+
+      #loginBox input {
+        padding: 12px 15px;
+        margin: 10px 0;
+        border-radius: 8px;
+        border: 1px solid #ccc;
+        outline: none;
+        font-size: 16px;
+        transition: 0.3s;
+      }
+
+      #loginBox input:focus {
+        border-color: #667eea;
+        box-shadow: 0 0 8px rgba(102, 126, 234, 0.5);
+      }
+
+      #loginBox button {
+        margin-top: 15px;
+        padding: 12px;
+        background: #667eea;
+        border: none;
+        border-radius: 8px;
+        color: #fff;
+        font-size: 18px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #loginBox button:hover {
+        background: #5a67d8;
+        transform: translateY(-2px);
+      }
+
+      /* ===== ADMIN PANEL ===== */
+      #adminPanel {
+        background: #fff;
+        padding: 30px 40px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+        width: 95%;
+        max-width: 1000px;
+      }
+
+      #adminPanel button {
+        margin: 5px 5px 15px 0;
+        padding: 10px 18px;
+        background: #2b7cff;
+        border: none;
+        border-radius: 6px;
+        color: #fff;
+        font-size: 15px;
+        cursor: pointer;
+        transition: 0.3s;
+      }
+
+      #adminPanel button:hover {
+        background: #1a5ecc;
+        transform: translateY(-2px);
+      }
+
+      /* ===== TABLE STYLING ===== */
+      table {
+        width: 100%;
+        border-collapse: collapse;
+        margin-top: 15px;
+      }
+
       th,
       td {
-        border: 1px solid #ccc;
-        padding: 8px;
+        padding: 12px;
         text-align: center;
+        border-bottom: 1px solid #ddd;
       }
+
       th {
         background: #2b7cff;
-        color: white;
+        color: #fff;
+        font-weight: 600;
+      }
+
+      tr:nth-child(even) {
+        background: #f9f9f9;
+      }
+
+      tr:hover {
+        background: #e0ebff;
+        transition: 0.3s;
+      }
+
+      /* ===== RESPONSIVE DESIGN ===== */
+      @media (max-width: 768px) {
+        #loginBox,
+        #adminPanel {
+          width: 90%;
+          padding: 20px;
+        }
+
+        #adminPanel button {
+          width: 100%;
+          margin-bottom: 10px;
+        }
+
+        table {
+          font-size: 14px;
+        }
       }
     </style>
   </head>
@@ -30,7 +152,7 @@
     </div>
 
     <div id="adminPanel" style="display: none">
-      <h2>📊 Python Exam – Results</h2>
+      <h2>📊 AWS Exam – Results</h2>
       <button onclick="loadResults()">🔄 Refresh</button>
       <button onclick="downloadResults()">💾 Download All</button>
       <button onclick="clearResults()">🗑 Clear All</button>
