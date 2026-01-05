@@ -5,6 +5,214 @@
   <title>Python Exam</title>
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <link rel="stylesheet" href="style.css" />
+  <style>
+      /* ===== GENERAL ===== */
+      * {
+        box-sizing: border-box;
+        margin: 0;
+        padding: 0;
+        font-family: "Segoe UI", Tahoma, Geneva, Verdana, sans-serif;
+      }
+
+      body {
+        background: linear-gradient(135deg, #667eea, #764ba2);
+        color: #333;
+        min-height: 100vh;
+        padding: 0;
+      }
+
+      /* ===== STICKY HEADER ===== */
+      header {
+        position: sticky;
+        top: 0;
+        background: #2b7cff;
+        color: #fff;
+        padding: 15px 20px;
+        font-size: 20px;
+        font-weight: 600;
+        text-align: center;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        z-index: 1000;
+      }
+
+      header .timer {
+        margin-top: 5px;
+        font-size: 16px;
+        font-weight: 500;
+      }
+
+      /* ===== MAIN CONTAINER ===== */
+      .main-container {
+        display: flex;
+        max-width: 1200px;
+        margin: 20px auto;
+        gap: 20px;
+        padding: 0 15px;
+      }
+
+      #questions {
+        flex: 3;
+        background: #fff;
+        padding: 25px;
+        border-radius: 12px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      /* ===== QUESTION CARD ===== */
+      .question-card {
+        margin-bottom: 20px;
+        padding: 15px 20px;
+        border: 1px solid #ddd;
+        border-radius: 10px;
+        transition: 0.3s;
+      }
+
+      .question-card:hover {
+        box-shadow: 0 5px 15px rgba(102, 126, 234, 0.3);
+      }
+
+      .question-card h3 {
+        margin-bottom: 12px;
+        font-size: 18px;
+        color: #333;
+      }
+
+      /* ===== OPTIONS ===== */
+      .options {
+        display: flex;
+        flex-direction: column;
+      }
+
+      .options label {
+        background: #f1f1f1;
+        padding: 10px 12px;
+        margin: 5px 0;
+        border-radius: 8px;
+        cursor: pointer;
+        transition: 0.3s;
+        display: flex;
+        align-items: center;
+      }
+
+      .options input[type="radio"] {
+        margin-right: 10px;
+      }
+
+      .options label:hover {
+        background: #d0e1ff;
+      }
+
+      .options input[type="radio"]:checked + label {
+        background: #00c851;
+        color: #fff;
+      }
+
+      /* ===== QUESTION NAVIGATION PANEL ===== */
+      #questionNav {
+        flex: 1;
+        background: #fff;
+        padding: 20px;
+        border-radius: 12px;
+        height: fit-content;
+        position: sticky;
+        top: 100px;
+        box-shadow: 0 10px 25px rgba(0, 0, 0, 0.2);
+      }
+
+      #questionNav h4 {
+        margin-bottom: 15px;
+        text-align: center;
+      }
+
+      .nav-button {
+        width: 40px;
+        height: 40px;
+        margin: 5px;
+        border-radius: 50%;
+        border: none;
+        background: #ddd;
+        cursor: pointer;
+        font-weight: 600;
+        transition: 0.3s;
+      }
+
+      .nav-button:hover {
+        background: #2b7cff;
+        color: #fff;
+      }
+
+      .nav-button.answered {
+        background: #00c851;
+        color: #fff;
+      }
+
+      /* ===== STICKY ACTION BAR ===== */
+      .quiz-actions {
+        position: fixed;
+        bottom: 20px;
+        left: 50%;
+        transform: translateX(-50%);
+        width: 95%;
+        max-width: 1200px;
+        display: flex;
+        justify-content: flex-end;
+        z-index: 1000;
+      }
+
+      .quiz-actions button {
+        background: #ff5722;
+        color: #fff;
+        padding: 12px 25px;
+        font-size: 16px;
+        border: none;
+        border-radius: 10px;
+        cursor: pointer;
+        box-shadow: 0 5px 15px rgba(0, 0, 0, 0.2);
+        transition: 0.3s;
+      }
+
+      .quiz-actions button:hover {
+        background: #e64a19;
+        transform: translateY(-2px);
+      }
+
+      /* ===== RESPONSIVE ===== */
+      @media (max-width: 992px) {
+        .main-container {
+          flex-direction: column;
+          gap: 20px;
+        }
+
+        #questionNav {
+          position: relative;
+          top: 0;
+          display: flex;
+          flex-wrap: wrap;
+          justify-content: center;
+        }
+      }
+
+      @media (max-width: 480px) {
+        header {
+          font-size: 18px;
+          padding: 12px 15px;
+        }
+
+        .question-card h3 {
+          font-size: 16px;
+        }
+
+        .options label {
+          font-size: 14px;
+          padding: 8px 10px;
+        }
+
+        .quiz-actions button {
+          width: 100%;
+          padding: 12px;
+        }
+      }
+    </style>
 </head>
 <body>
 
@@ -30,6 +238,7 @@
   <script src="exam.js"></script>
 </body>
 </html>
+
 
 
 
