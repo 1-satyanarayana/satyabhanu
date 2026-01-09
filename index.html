@@ -1,50 +1,100 @@
-<!DOCTYPE html>
-<html lang="en">
-  <head>
-    <meta charset="UTF-8" />
-    <meta name="viewport" content="width=device-width, initial-scale=1.0" />
-    <title>Portal Login</title>
-    <style>
-      body {
-        font-family: Arial, sans-serif;
-        background: #f0f2f5;
-        display: flex;
-        justify-content: center;
-        align-items: center;
-        height: 100vh;
-      }
-      .container {
-        text-align: center;
-        background: white;
-        padding: 50px 30px;
-        border-radius: 12px;
-        box-shadow: 0 4px 15px rgba(0, 0, 0, 0.1);
-      }
-      h1 {
-        margin-bottom: 40px;
-        color: #333;
-      }
-      .btn {
-        display: inline-block;
-        padding: 15px 30px;
-        margin: 10px;
-        font-size: 18px;
-        text-decoration: none;
-        color: white;
-        background-color: #007bff;
-        border-radius: 8px;
-        transition: background 0.3s;
-      }
-      .btn:hover {
-        background-color: #0056b3;
-      }
-    </style>
-  </head>
-  <body>
-    <div class="container">
-      <h1>Welcome to the Portal</h1>
-      <a href="admin.html" class="btn">Admin</a>
-      <a href="index1.html" class="btn">Student</a>
-    </div>
-  </body>
+<!DOCTYPE html><html lang="en">
+<head>
+  <meta charset="UTF-8" />
+  <meta name="viewport" content="width=device-width, initial-scale=1.0" />
+  <title>Scratch Card – 1 to 39 Number Sets</title>
+  <style>
+    body {
+      font-family: Arial, sans-serif;
+      background: #f5f5f5;
+      margin: 0;
+      padding: 20px;
+    }
+    h1 {
+      text-align: center;
+    }
+    .grid {
+      display: grid;
+      grid-template-columns: repeat(auto-fill, minmax(180px, 1fr));
+      gap: 15px;
+    }
+    .card {
+      position: relative;
+      background: #fff;
+      border-radius: 8px;
+      box-shadow: 0 2px 6px rgba(0,0,0,0.15);
+      padding: 20px;
+      text-align: center;
+      cursor: pointer;
+      user-select: none;
+    }
+    .numbers {
+      font-size: 18px;
+      font-weight: bold;
+      visibility: hidden;
+    }
+    .cover {
+      position: absolute;
+      top: 0;
+      left: 0;
+      right: 0;
+      bottom: 0;
+      background: repeating-linear-gradient(
+        45deg,
+        #999,
+        #999 10px,
+        #bbb 10px,
+        #bbb 20px
+      );
+      border-radius: 8px;
+      display: flex;
+      align-items: center;
+      justify-content: center;
+      color: #fff;
+      font-weight: bold;
+      font-size: 16px;
+    }
+    .card.revealed .numbers {
+      visibility: visible;
+    }
+    .card.revealed .cover {
+      display: none;
+    }
+  </style>
+</head>
+<body><h1>Scratch Card – 3000 Number Sets (1 to 39)</h1>
+<p style="text-align:center;">Click any card to scratch & reveal numbers</p><div class="grid" id="grid"></div><script>
+  function generateSet() {
+    const nums = [];
+    while (nums.length < 6) {
+      const n = Math.floor(Math.random() * 39) + 1;
+      if (!nums.includes(n)) nums.push(n);
+    }
+    return nums.sort((a, b) => a - b);
+  }
+
+  const grid = document.getElementById('grid');
+
+  for (let i = 1; i <= 3000; i++) {
+    const card = document.createElement('div');
+    card.className = 'card';
+
+    const numbers = document.createElement('div');
+    numbers.className = 'numbers';
+    numbers.textContent = generateSet().join('  ');
+
+    const cover = document.createElement('div');
+    cover.className = 'cover';
+    cover.textContent = 'SCRATCH';
+
+    card.appendChild(numbers);
+    card.appendChild(cover);
+
+    card.addEventListener('click', () => {
+      card.classList.add('revealed');
+    });
+
+    grid.appendChild(card);
+  }
+</script></body>
 </html>
